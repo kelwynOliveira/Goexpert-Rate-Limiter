@@ -17,13 +17,13 @@ export const options = {
 };
 
 export default function () {
-    http.get('http://localhost:8080');
+  http.get('http://localhost:8080');
 
-    http.get('http://localhost:8080', {
-      headers: {
-        'API_KEY': 'any-api-key'
-      }
-    });
+  http.get('http://localhost:8080', {
+    headers: {
+      'API_KEY': 'any-api-key'
+    }
+  });
 
-    sleep(1);
+  sleep(1);
 }

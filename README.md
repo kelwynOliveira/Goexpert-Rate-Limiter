@@ -73,10 +73,8 @@ To run the unit tests and validate the coverage, run the `make test` command.
 ### Stress tests
 To run the stress tests with k6, follow these steps:
 1. start the application and Redis with the command `docker compose up redis api`;
-2. Run the command `make test_k6_smoke` to start the _smoke_ stress test (duration 1 minute);
-3. Run the `make test_k6_stress` command to start the _stress_ stress test (duration 40 minutes).
-
-You can view the results in the `./scripts/k6/smoke` and `./scripts/k6/stress` folders, both in text and HTML format.
+2. Run the command `make test_k6_smoke` to start the _smoke_ stress test;
+3. Run the `make test_k6_stress` command to start the _stress_ stress test.
  
  
 
