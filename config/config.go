@@ -1,35 +1,19 @@
 package config
 
-import "github.com/spf13/viper"
+import (
+	"log"
+	"strings"
 
-type Conf struct {
-	LogLevel                          string `mapstructure:"LOG_LEVEL"`
-	WebServerPort                     int    `mapstructure:"WEB_SERVER_PORT"`
-	RedisHost                         string `mapstructure:"REDIS_HOST"`
-	RedisPort                         int    `mapstructure:"REDIS_PORT"`
-	RedisPassword                     string `mapstructure:"REDIS_PASSWORD"`
-	RedisDB                           int    `mapstructure:"REDIS_DB"`
-	RateLimiterIPMaxRequests          int    `mapstructure:"RATE_LIMITER_MAX_IP_REQUESTS"`
-	RateLimiterTokenMaxRequests       int    `mapstructure:"RATE_LIMITER_MAX_TOKEN_REQUESTS"`
-	RateLimiterTimeWindowMilliseconds int    `mapstructure:"RATE_LIMITER_TIME_WINDOW_MILISECONDS"`
-}
+	"github.com/joho/godotenv"
+)
 
-func Load(path string) (*Conf, error) {
-	var c *Conf
-
-	viper.SetConfigName("app_config")
-	viper.SetConfigType("env")
-	viper.AddConfigPath(path)
-	viper.SetConfigFile(".env")
-	viper.AutomaticEnv()
-
-	if err := viper.ReadInConfig(); err != nil {
-		panic(err)
+func Init() {
+	err := godotenv.Overload()
+	if strings.Contains(string(err.Error()), "no such file or directory") {
+		log.Printf("error loading .env file. Continue without it, gettings envs from environment...")
+	} else {
+		log.Fatalf("fail to read configs: %v", err)
+		return
 	}
 
-	if err := viper.Unmarshal(&c); err != nil {
-		panic(err)
-	}
-
-	return c, nil
 }
